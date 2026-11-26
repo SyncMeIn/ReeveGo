@@ -1,0 +1,9 @@
+bastion.example.com {
+    reverse_proxy 127.0.0.1:18443 {
+        flush_interval -1
+        transport http {
+            read_timeout 360s
+            write_timeout 360s
+        }
+    }
+}

@@ -1,0 +1,25 @@
+[Unit]
+Description=Reeve-Go LAN AI Bastion Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=reevego
+Group=reevego
+WorkingDirectory=/opt/reeve-go
+ExecStart=/opt/reeve-go/reeve-go server \
+  --listen 127.0.0.1:18443 \
+  --external-url https://bastion.example.com \
+  --behind-proxy \
+  --trusted-proxies 127.0.0.1/32 \
+  --data-dir /opt/reeve-go/data
+Restart=on-failure
+RestartSec=3s
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/reeve-go/data
+
+[Install]
+WantedBy=multi-user.target
